@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>FriendFinder Homepage</title>
+
+    <!-- Latest compiled and minified CSS & JS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- <link rel="stylesheet" type="text/css" href="../public/css/stylesheet.css"> -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="jumbotron">
+            <h1 class="text-center">
+                <span class="fa fa-fire"></span>FriendFinder</h1>
+            <hr>
+            <h2 class="text-center">Please answer the questions below and submit to get started with FriendFinder</h2>
+            <br>
+            <div class="text-center">
+                <a href="/">
+                    <button class="btn btn-lg btn-default">
+                        <span class="fa fa-home"></span>
+                    </button>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <!-- Survey Page -->
+                <div class="card">
+                    <div class="card-header">
+                        Fill out your name and email here:
+                    </div>
+                    <div class="card-body">
+                        <form role="form">
+                            <div class="form-group">
+                                <label for="fullName">What is your full name? (First and Last)</label>
+                                <input type="text" class="form-control" id="fullName">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="emailAddress">What is your email address?</label>
+                                <input type="text" class="form-control" id="emailAddress">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card" id="surveyMarginTop">
+                        <div class="card-header">
+                            <!-- Please fill out our survey below to get started.  -->
+                            Answers below should be numbers from 1-5 with 5
+                            being high and 1 being low.
+                        </div>
+                        <div class="card-body">
+                            <form role="form">
+
+
+
+                                <div class="form-group">
+                                    <label for="ques1">Question #1: How much do you like coding?</label>
+                                    <input type="text" class="form-control" id="ques1">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="ques2">Question #2: How much do you like coffee?</label>
+                                    <input type="text" class="form-control" id="ques2">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="ques3">Question #3: How much do you like board games?</label>
+                                    <input type="text" class="form-control" id="ques3">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="ques4">Question #4: How much do you like sports?</label>
+                                    <input type="text" class="form-control" id="ques4">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="ques5">Question #5: How much do you like watching movies?</label>
+                                    <input type="text" class="form-control" id="ques5">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="ques6">Question #6: How much do you like animals?</label>
+                                    <input type="text" class="form-control" id="ques6">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="ques7">Question #7: How much do you like beer?</label>
+                                    <input type="text" class="form-control" id="ques7">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="ques8">Question #8: How much do you like going out to eat?</label>
+                                    <input type="text" class="form-control" id="ques8">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="ques9">Question #9: How much do you like bowling?</label>
+                                    <input type="text" class="form-control" id="ques9">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="ques10">Question #10: How much do you like going to local
+                                        events?</label>
+                                    <input type="text" class="form-control" id="ques10">
+                                </div>
+
+                                <button type="submit" class="btn btn-primary submit">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <footer class="footer">
+            <div class="container">
+                <p>
+                    <a href="/api/tables">API Table Link</a> |
+                    <a href="/api/waitlist">API Wait List</a>
+            </div>
+        </footer>
+
+    </div>
+
+</body>
+
+</html>
+
+<!-- BELOW CODE IS CRITICAL. IT HANDLES HOW FORM DATA IS SENT TO OUR SERVER -->
+<script type="text/javascript">
+    // In this code below we create the Front-end JavaScript which "POSTS" our form data to our express server.
+    // In essence, when the user hits submit, jQuery grabs all of the fields then sends a post request to our api
+    // Our api recognizes the route (/api/tables)... and then runs the associated code (found in api-routes.js).
+    // In this case the associated code "saves" the data to the table-data.js file or waitinglist-data.js file
+
+    $(".submit").on("click", function (event) {
+        event.preventDefault();
+
+        // Here we grab the form elements
+        var personData = {
+            fullName: $("#fullName").val().trim(),
+            emailAddress: $("#emailAddress").val().trim(),
+            // photo: $("#reserve-phone").val().trim(),
+            scores: [
+                $("#ques1").val().trim(),
+                $("#ques2").val().trim(),
+                $("#ques3").val().trim(),
+                $("#ques4").val().trim(),
+                $("#ques5").val().trim(),
+                $("#ques6").val().trim(),
+                $("#ques7").val().trim(),
+                $("#ques8").val().trim(),
+                $("#ques9").val().trim(),
+                $("#ques10").val().trim()
+            ]
+        };
+
+        console.log(personData);
+
+        // This line is the magic. It"s very similar to the standard ajax function we used.
+        // Essentially we give it a URL, we give it the object we want to send, then we have a "callback".
+        // The callback is the response of the server. In our case, we set up code in api-routes that "returns" true or false
+        // depending on if a tables is available or not.
+
+        $.post("/api/friends", personData,
+            function (data) {
+
+                if (data) {
+                    alert("Yay! You're profile has been posted!!");
+                }
+                else {
+                    alert("Sorry , something happened, your profile was not posted.");
+                }
+
+                // Clear the form when submitting
+                $("#fullName").val("");
+                $("#emailAddress").val("");
+                $("#ques1").val("");
+                $("#ques2").val("");
+                $("#ques3").val("");
+                $("#ques4").val("");
+                $("#ques5").val("");
+                $("#ques6").val("");
+                $("#ques7").val("");
+                $("#ques8").val("");
+                $("#ques9").val("");
+                $("#ques10").val("");
+
+            });
+
+    });
+
+    // function compareFriendScores(personData, megaFriendsList) {
+    //     for (var i = 0; i < scores.length; i++) {
+    //         Math.abs(personData.scores[i] - megaFriendslist[i].scores[i])
+    //     })
+    // }
+
+</script>
